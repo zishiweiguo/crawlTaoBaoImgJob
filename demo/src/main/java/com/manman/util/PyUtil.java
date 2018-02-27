@@ -9,19 +9,19 @@ import java.io.LineNumberReader;
  */
 public class PyUtil {
 
-    public static Boolean invokePy(String[] strs) throws IOException{
-        String result;
-        System.out.println("url:" + strs[2]);
+    public static Boolean invokePy(String[] strs) throws Exception{
         Process process = Runtime.getRuntime().exec(strs);
 
         InputStreamReader ir = new InputStreamReader(process.getInputStream());
         LineNumberReader input = new LineNumberReader(ir);
-        result = input.readLine();
-        System.out.println(result);
+        String line;
+        while((line = input.readLine()) != null)
+            System.out.println(line);
+        int status = process.waitFor();
         input.close();
         ir.close();
 
-        return "ok".equals(result);
+        return status == 0;
     }
 
 }
