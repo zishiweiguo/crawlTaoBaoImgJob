@@ -1,5 +1,8 @@
 package com.manman.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -9,6 +12,8 @@ import java.io.LineNumberReader;
  */
 public class PyUtil {
 
+    private static Logger logger = LoggerFactory.getLogger(PyUtil.class);
+
     public static Boolean invokePy(String[] strs) throws Exception{
         Process process = Runtime.getRuntime().exec(strs);
 
@@ -16,7 +21,7 @@ public class PyUtil {
         LineNumberReader input = new LineNumberReader(ir);
         String line;
         while((line = input.readLine()) != null)
-            System.out.println(line);
+            logger.info(line);
         int status = process.waitFor();
         input.close();
         ir.close();

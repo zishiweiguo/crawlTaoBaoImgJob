@@ -1,6 +1,8 @@
 package com.manman.test;
 
 import com.manman.util.PyUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,12 +21,14 @@ import java.net.URLEncoder;
 //@SpringBootApplication
 public class SpideImgController {
 
+    private static Logger logger = LoggerFactory.getLogger(SpideImgController.class);
+
     @RequestMapping("/index")
     public String test(){
         return "index";
     }
 
-    @RequestMapping("/downloadImg")
+    @RequestMapping("/downloadImga")
     public void downLoadImg(HttpServletResponse response, String url){
         if(!"".equals(url)){
             String[] args = new String[]{"python", "/server/python/SpideImgTest.py", url};  //d:/python/test/SpideImgTest.py  /server/python/SpideImgTest.py
@@ -32,7 +36,7 @@ public class SpideImgController {
                 boolean isSuccess = PyUtil.invokePy(args);
                 if (isSuccess){
                     //调用python成功并执行完成
-                    System.out.println("python 执行完成");
+                    logger.info("python 执行完成");
                     String[] urls = url.split(",");
                     String dir = "/server/img/" + urls[1] + ".zip"; //d:/img/  /server/img/
                     response.setContentType("application/x-download");
@@ -60,12 +64,12 @@ public class SpideImgController {
                     File file = new File(dir);
 
                     if (file.delete()){
-                        System.out.println(dir + " 删除成功");
+                        logger.info(dir + " 删除成功");
                     }
 
                 }
             }catch (Exception e){
-                System.out.println("调用python发生异常 : ");
+                logger.info("调用python发生异常 : ");
                 e.printStackTrace();
             }
         }
