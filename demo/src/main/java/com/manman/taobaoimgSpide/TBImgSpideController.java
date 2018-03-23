@@ -26,7 +26,8 @@ public class TBImgSpideController {
 //        String url = "https://item.taobao.com/item.htm?spm=a230r.1.14.1.dccb42c3ao7Ra6&id=546746057907&ns=1&abbucket=7#detail,dankou";
 //        url = "https://detail.tmall.com/item.htm?spm=a1z10.5-b.w4011-7838460923.51.6e836b91S33ota&id=40945642037&rn=1566a427ea5eadf2c9d50379c2a323c7&abbucket=1,test,tmall";
 
-        String filePath = "d:" + File.separator + "img";
+        //String filePath = "d:" + File.separator + "img";
+        String filePath = File.separator + "server" + File.separator + "img";
         String[] urls = url.split(",");
         String filename;
         String goodsType;
